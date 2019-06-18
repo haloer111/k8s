@@ -1,5 +1,5 @@
-namespace java com.imooc.thrift.message
-namespace py message.api
+namespace java com.gexiao.message.service
+
 
 service MessageService{
 
