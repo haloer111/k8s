@@ -12,6 +12,7 @@ import org.apache.thrift.TException;
 import org.apache.tomcat.util.buf.HexUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.MessageDigest;
@@ -20,7 +21,7 @@ import java.util.Random;
 /**
  * Created by Michael on 2017/10/30.
  */
-@RestController
+@Controller
 @RequestMapping("user")
 @Slf4j
 public class UserController {
@@ -33,10 +34,11 @@ public class UserController {
 
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public String login() {
-        return "login";
+        return "/login";
     }
 
     @RequestMapping(value="/login", method = RequestMethod.POST)
+    @ResponseBody
     public Response login(@RequestParam("username")String username,
                       @RequestParam("password")String password) {
 
