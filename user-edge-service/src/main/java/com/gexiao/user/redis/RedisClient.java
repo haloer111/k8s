@@ -19,8 +19,14 @@ public class RedisClient {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+    private static  final int DEFAULT_TIMEOUT=3600;
+
     public <T> T get(String key) {
         return (T)redisTemplate.opsForValue().get(key);
+    }
+
+    public  String getStr(String key) {
+        return redisTemplate.opsForValue().get(key).toString();
     }
 
     public void set(String key, Object value) {
@@ -33,6 +39,10 @@ public class RedisClient {
 
     public void setStr(String key, Object value, int timeout) {
         stringRedisTemplate.opsForValue().set(key, JSONObject.toJSONString(value), timeout, TimeUnit.SECONDS);
+    }
+
+    public void setStr(String key, Object value) {
+        stringRedisTemplate.opsForValue().set(key, JSONObject.toJSONString(value), DEFAULT_TIMEOUT, TimeUnit.SECONDS);
     }
 
     public void expire(String key, int timeout) {

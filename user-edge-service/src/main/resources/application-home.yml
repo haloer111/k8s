@@ -7,11 +7,18 @@ spring:
     username: root
     password: gexiao
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 120.77.252.112
+    port: 6379
+
+thrift:
+  user:
+    ip: 192.168.0.108
+    port: 7911
+  message:
+    ip: 192.168.0.108
+    port: 9090
 
 server:
-  name: user-thrift-service
-  port: 7911
-logging:
-  level:
-    com.gexiao.user.mapper: debug
-
+  port: 8082
+  name: user-edge-service

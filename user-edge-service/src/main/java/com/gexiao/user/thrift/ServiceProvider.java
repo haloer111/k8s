@@ -1,5 +1,6 @@
 package com.gexiao.user.thrift;
 
+import com.gexiao.message.MessageService;
 import com.gexiao.user.service.UserService;
 import org.apache.thrift.TServiceClient;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -23,10 +24,10 @@ public class ServiceProvider {
     @Value("${thrift.user.port}")
     private int serverPort;
 
-//    @Value("${thrift.message.ip}")
-//    private String messageServerIp;
-//    @Value("${thrift.message.port}")
-//    private int messageServerPort;
+    @Value("${thrift.message.ip}")
+    private String messageServerIp;
+    @Value("${thrift.message.port}")
+    private int messageServerPort;
 
     private enum ServiceType {
         USER,
@@ -38,10 +39,10 @@ public class ServiceProvider {
         return getService(serverIp, serverPort, ServiceType.USER);
     }
 
-//    public MessageService.Client getMessasgeService() {
-//
-//        return getService(messageServerIp, messageServerPort, ServiceType.MESSAGE);
-//    }
+    public MessageService.Client getMessasgeService() {
+
+        return getService(messageServerIp, messageServerPort, ServiceType.MESSAGE);
+    }
 
     public <T> T getService(String ip, int port, ServiceType serviceType) {
         TSocket socket = new TSocket(ip, port, 3000);
@@ -59,9 +60,9 @@ public class ServiceProvider {
             case USER:
                 result = new UserService.Client(protocol);
                 break;
-//            case MESSAGE:
-//                result = new MessageService.Client(protocol);
-//                break;
+            case MESSAGE:
+                result = new MessageService.Client(protocol);
+                break;
         }
         return (T)result;
     }

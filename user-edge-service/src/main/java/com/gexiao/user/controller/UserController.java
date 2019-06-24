@@ -6,6 +6,7 @@ import com.gexiao.user.response.LoginResponse;
 import com.gexiao.user.response.Response;
 import com.gexiao.user.service.UserInfo;
 import com.gexiao.user.thrift.ServiceProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.thrift.TException;
 import org.apache.tomcat.util.buf.HexUtils;
@@ -21,6 +22,7 @@ import java.util.Random;
  */
 @RestController
 @RequestMapping("user")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -73,11 +75,13 @@ public class UserController {
 
             boolean result = false;
             if(StringUtils.isNotBlank(mobile)) {
-//                result = serviceProvider.getMessasgeService().sendMobileMessage(mobile, message+code);
-                redisClient.set(mobile, code);
+                result = serviceProvider.getMessasgeService().sendMobileMessage(mobile, message+code);
+                log.info("手机号为：{}，验证码为：{}",mobile,code);
+                redisClient.setStr(mobile, code);
             } else if(StringUtils.isNotBlank(email)) {
-//                result = serviceProvider.getMessasgeService().sendEmailMessage(email, message+code);
-                redisClient.set(email, code);
+                result = serviceProvider.getMessasgeService().sendEmailMessage(email, message+code);
+                log.info("邮箱为：{}，验证码为：{}",email,code);
+                redisClient.setStr(email, code);
             } else {
                 return Response.MOBILE_OR_EMAIL_REQUIRED;
             }
@@ -108,11 +112,13 @@ public class UserController {
 
         if(StringUtils.isNotBlank(mobile)) {
             String redisCode = redisClient.get(mobile);
+            log.info("redis获取的验证码为：{}",redisCode);
             if(!verifyCode.equals(redisCode)) {
                 return Response.VERIFY_CODE_INVALID;
             }
         }else {
-            String redisCode = redisClient.get(email);
+            String redisCode = redisClient.getStr(email);
+            log.info("redis获取的验证码为：{}",redisCode);
             if(!verifyCode.equals(redisCode)) {
                 return Response.VERIFY_CODE_INVALID;
             }
