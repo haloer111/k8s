@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### github account ###
+.git-credentials
