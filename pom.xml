@@ -17,6 +17,7 @@
     <module>user-edge-service</module>
     <module>message-thrift-service-api</module>
     <module>message-thrift-service</module>
+      <module>course-dubbo-service-api</module>
   </modules>
 
 

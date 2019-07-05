@@ -57,8 +57,12 @@ public abstract class LoginFilter implements Filter {
         UserDTO userDTO = null;
         if (StringUtils.isNotBlank(token)) {
             userDTO = cache.getIfPresent(token);
-            if (userDTO == null)
+            if (userDTO == null) {
                 userDTO = requestUserInfo(token);
+                if (userDTO != null) {
+                    cache.put(token, userDTO);
+                }
+            }
         } else {
             String url = new StringBuilder().append("http://").append(userEdgeIp).append(":")
                     .append(userEdgePort).append("/user/login").toString();
@@ -66,12 +70,9 @@ public abstract class LoginFilter implements Filter {
             return;
         }
 
-        cache.put(token,userDTO);
-
         login(request, response, userDTO);
 
         chain.doFilter(request, response);
-
 
     }
 
