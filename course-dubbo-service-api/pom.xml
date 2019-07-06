@@ -14,9 +14,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.thrift</groupId>
-            <artifactId>libthrift</artifactId>
-            <version>0.12.0</version>
+            <groupId>com.gexiao</groupId>
+            <artifactId>user-thrift-service-api</artifactId>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
 
