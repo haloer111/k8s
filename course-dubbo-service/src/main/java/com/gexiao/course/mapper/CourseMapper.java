@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface CourseMapper {
 
-    @Select("select * from pe_course")
+    @Select("select id from pe_course")
     List<CourseDTO> listCourse();
 
     @Select("select user_id from pr_user_course where course_id=#{courseId}")

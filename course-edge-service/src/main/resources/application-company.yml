@@ -1,0 +1,12 @@
+server:
+  port: 8081
+  userEdge:
+    port: 8082
+    ip: 192.168.2.31
+dubbo:
+  application:
+    name: course-service
+  registry:
+    address: 120.77.252.112:2181
+    protocol: zookeeper
+

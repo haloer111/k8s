@@ -4,8 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.gexiao.user.dto.UserDTO;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,7 +15,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -30,16 +30,15 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class LoginFilter implements Filter {
 
-    @Value("${server.user-edge.ip}")
+    @Value("${server.userEdge.ip}")
     private String userEdgeIp;
-    @Value("${server.user-edge.port}")
+    @Value("${server.userEdge.port}")
     private String userEdgePort;
 
     private static Cache<String, UserDTO> cache = CacheBuilder.newBuilder()
             .maximumSize(10000).expireAfterWrite(3, TimeUnit.MINUTES).build();
 
 
-    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -48,9 +47,11 @@ public abstract class LoginFilter implements Filter {
 
         if (StringUtils.isBlank(token)) {
             Cookie[] cookies = request.getCookies();
-            for (Cookie cookie : cookies) {
-                if (StringUtils.equals(cookie.getName(), "token")) ;
-                token = cookie.getName();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (StringUtils.equals(cookie.getName(), "token")) ;
+                    token = cookie.getName();
+                }
             }
         }
 
@@ -96,7 +97,7 @@ public abstract class LoginFilter implements Filter {
             HttpEntity responseEntity = response.getEntity();
 
             System.out.println("响应状态为:" + response.getStatusLine());
-            if (response.getStatusLine().getStatusCode() != HttpStatus.OK.value())
+            if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
                 throw new RuntimeException("request user info failed StatusLine" + response.getStatusLine());
 
             if (responseEntity != null) {

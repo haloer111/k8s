@@ -1,5 +1,6 @@
 package com.gexiao.user.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gexiao.user.dto.UserDTO;
 import com.gexiao.user.redis.RedisClient;
 import com.gexiao.user.response.LoginResponse;
@@ -145,7 +146,11 @@ public class UserController {
     @ResponseBody
     public UserDTO authentication(@RequestHeader("token") String token) {
 
-        return redisClient.get(token);
+        String  obj = redisClient.getStr(token);
+        UserDTO userDTO = new UserDTO();
+//        BeanUtils.copyProperties(obj,userDTO);
+        userDTO = JSONObject.parseObject(obj,UserDTO.class);
+        return userDTO;
     }
 
     private UserDTO toDTO(UserInfo userInfo) {

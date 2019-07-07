@@ -1,5 +1,6 @@
 package com.gexiao.course.service;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.gexiao.course.dto.CourseDTO;
 import com.gexiao.course.mapper.CourseMapper;
 import com.gexiao.user.dto.TeacherDTO;
@@ -7,7 +8,7 @@ import com.gexiao.user.service.UserInfo;
 import org.apache.thrift.TException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * Created by Michael on 2017/11/3.
  */
 @Service
+@Component
 public class CourseServiceImpl implements ICourseService {
 
 
