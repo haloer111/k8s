@@ -19,13 +19,13 @@ public class RedisClient {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    private static  final int DEFAULT_TIMEOUT=3600;
+    private static final int DEFAULT_TIMEOUT = 3600;
 
     public <T> T get(String key) {
-        return (T)redisTemplate.opsForValue().get(key);
+        return (T) redisTemplate.opsForValue().get(key);
     }
 
-    public  String getStr(String key) {
+    public String getStr(String key) {
         return redisTemplate.opsForValue().get(key).toString();
     }
 

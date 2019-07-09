@@ -19,7 +19,6 @@ public class Response implements Serializable {
     public static final Response SUCCESS = new Response();
 
 
-
     private String code;
     private String message;
 
@@ -27,6 +26,7 @@ public class Response implements Serializable {
         this.code = "0";
         this.message = "success";
     }
+
     public Response(String code, String message) {
         this.code = code;
         this.message = message;

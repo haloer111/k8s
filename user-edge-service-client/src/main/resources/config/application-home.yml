@@ -1,0 +1,4 @@
+server:
+  userEdge:
+    port: 8082
+    ip: 192.168.0.108

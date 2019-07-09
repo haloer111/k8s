@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 
-@SpringBootApplication(scanBasePackages="com.gexiao.course")
+@SpringBootApplication(scanBasePackages = "com.gexiao.course")
 @EnableDubbo
 public class CourseEdgeServiceApplication {
 

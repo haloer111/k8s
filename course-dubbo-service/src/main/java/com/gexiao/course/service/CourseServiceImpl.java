@@ -30,10 +30,10 @@ public class CourseServiceImpl implements ICourseService {
     public List<CourseDTO> courseList() {
 
         List<CourseDTO> courseDTOS = courseMapper.listCourse();
-        if(courseDTOS!=null) {
-            for(CourseDTO courseDTO : courseDTOS) {
+        if (courseDTOS != null) {
+            for (CourseDTO courseDTO : courseDTOS) {
                 Integer teacherId = courseMapper.getCourseTeacher(courseDTO.getId());
-                if(teacherId!=null) {
+                if (teacherId != null) {
                     try {
                         UserInfo userInfo = serviceProvider.getUserService().getTeacherById(teacherId);
                         courseDTO.setTeacher(trans2Teacher(userInfo));

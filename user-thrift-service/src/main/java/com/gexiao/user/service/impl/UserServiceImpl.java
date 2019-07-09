@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService.Iface {
 
     @Override
     public void registryUser(UserInfo userInfo) throws TException {
-        log.info("传入参数：{}",userInfo);
+        log.info("传入参数：{}", userInfo);
         int i = userMapper.registerUser(userInfo);
-        System.out.println("i==="+i);
+        System.out.println("i===" + i);
     }
 }

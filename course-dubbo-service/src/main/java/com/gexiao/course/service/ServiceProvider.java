@@ -50,7 +50,7 @@ public class ServiceProvider {
                 result = new UserService.Client(protocol);
                 break;
         }
-        return (T)result;
+        return (T) result;
     }
 
 }

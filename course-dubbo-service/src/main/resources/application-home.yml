@@ -1,0 +1,29 @@
+thrift:
+  user:
+    ip: 192.168.0.108
+    port: 7911
+
+#database
+spring:
+  datasource:
+    url: jdbc:mysql://120.77.252.112:3306/db_course?serverTimezone=GMT%2B8
+    username: root
+    password: gexiao
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# dubbo
+dubbo:
+  application:
+    name: course-service
+  registry:
+    address: 120.77.252.112:2181
+    protocol: zookeeper
+  protocol:
+    name: dubbo
+    port: 20880
+  monitor:
+    protocol: registry
+
+logging:
+  level:
+    com.gexiao.course.mapper: debug

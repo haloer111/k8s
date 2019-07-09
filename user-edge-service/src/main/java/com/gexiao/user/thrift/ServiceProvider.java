@@ -64,7 +64,7 @@ public class ServiceProvider {
                 result = new MessageService.Client(protocol);
                 break;
         }
-        return (T)result;
+        return (T) result;
     }
 
 }
