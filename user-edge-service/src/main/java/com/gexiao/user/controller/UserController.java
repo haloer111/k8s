@@ -146,10 +146,16 @@ public class UserController {
     @ResponseBody
     public UserDTO authentication(@RequestHeader("token") String token) {
 
-        String obj = redisClient.getStr(token);
-        UserDTO userDTO = new UserDTO();
-//        BeanUtils.copyProperties(obj,userDTO);
-        userDTO = JSONObject.parseObject(obj, UserDTO.class);
+        String userDTOStr = redisClient.getStr(token);
+
+        log.info("get user info from redis,userDTOStr [{}]",userDTOStr);
+
+        if (StringUtils.isBlank(userDTOStr))
+            return null;
+
+        UserDTO userDTO = JSONObject.parseObject(userDTOStr, UserDTO.class);
+
+        log.info("userDTO parse object, userDTO [{}]",userDTO);
         return userDTO;
     }
 

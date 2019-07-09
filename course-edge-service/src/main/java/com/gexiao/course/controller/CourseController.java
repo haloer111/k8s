@@ -27,7 +27,7 @@ public class CourseController {
     public List<CourseDTO> courseList(HttpServletRequest request) {
 
         UserDTO user = (UserDTO) request.getAttribute("user");
-        System.out.println("进到这里了" + user.toString());
+//        System.out.println("进到这里了" + user.toString());
 
         return courseService.courseList();
     }

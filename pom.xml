@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.gexiao</groupId>
-  <artifactId>k8s-ms</artifactId>
-  <version>1.0</version>
+    <groupId>com.gexiao</groupId>
+    <artifactId>k8s-ms</artifactId>
+    <version>1.0</version>
 
-  <name>k8s-ms</name>
-  <packaging>pom</packaging>
+    <name>k8s-ms</name>
+    <packaging>pom</packaging>
 
-  <modules>
-    <module>user-thrift-service-api</module>
-    <module>user-thrift-service</module>
-    <module>user-edge-service</module>
-    <module>user-edge-service-client</module>
-    <module>message-thrift-service-api</module>
-    <module>message-thrift-service</module>
-      <module>course-dubbo-service-api</module>
-  </modules>
-
+    <modules>
+        <module>user-thrift-service-api</module>
+        <module>user-thrift-service</module>
+        <module>user-edge-service</module>
+        <module>user-edge-service-client</module>
+        <module>message-thrift-service-api</module>
+        <module>message-thrift-service</module>
+        <module>course-dubbo-service-api</module>
+        <module>course-dubbo-service</module>
+        <module>course-edge-service</module>
+        <module>api-gateway-zuul</module>
+    </modules>
 
 
 </project>

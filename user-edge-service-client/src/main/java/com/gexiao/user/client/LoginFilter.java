@@ -62,12 +62,13 @@ public abstract class LoginFilter implements Filter {
                 userDTO = requestUserInfo(token);
                 if (userDTO != null) {
                     cache.put(token, userDTO);
+                } else{
+                    redirectLogin(response);
+                    return ;
                 }
             }
         } else {
-            String url = new StringBuilder().append("http://").append(userEdgeIp).append(":")
-                    .append(userEdgePort).append("/user/login").toString();
-            response.sendRedirect(url);
+            redirectLogin(response);
             return;
         }
 
@@ -75,6 +76,12 @@ public abstract class LoginFilter implements Filter {
 
         chain.doFilter(request, response);
 
+    }
+
+    private void redirectLogin(HttpServletResponse response) throws IOException {
+        String url = new StringBuilder().append("http://").append(userEdgeIp).append(":")
+                .append(userEdgePort).append("/user/login").toString();
+        response.sendRedirect(url);
     }
 
     protected abstract void login(HttpServletRequest request, HttpServletResponse response, UserDTO userDTO);
@@ -102,10 +109,13 @@ public abstract class LoginFilter implements Filter {
 
             if (responseEntity != null) {
                 System.out.println("响应内容长度为:" + responseEntity.getContentLength());
-                String entity = EntityUtils.toString(responseEntity);
-                System.out.println("响应内容为:" + entity);
+                String entityStr = EntityUtils.toString(responseEntity);
+                System.out.println("响应内容为:" + entityStr);
 
-                UserDTO userDTO = JSONObject.parseObject(entity, UserDTO.class);
+                if (StringUtils.isBlank(entityStr))
+                    return null;
+
+                UserDTO userDTO = JSONObject.parseObject(entityStr, UserDTO.class);
                 return userDTO;
             }
         } catch (ClientProtocolException e) {

@@ -26,7 +26,7 @@ public class RedisClient {
     }
 
     public String getStr(String key) {
-        return redisTemplate.opsForValue().get(key).toString();
+        return redisTemplate.opsForValue().get(key) == null ? "" : String.valueOf(redisTemplate.opsForValue().get(key));
     }
 
     public void set(String key, Object value) {
